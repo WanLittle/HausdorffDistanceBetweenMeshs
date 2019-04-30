@@ -8,8 +8,11 @@ A pair of OFF files with triangle meshs
 
 ### Output
 
-Hausdorff distance value between meshs.
+The first two lines is faces numbers of the pair of OFF files, and  the third line is hausdorff distance value between meshs.
 
 ### Usage
 
-Reference to main.cpp for specific usage.
+```c
+./HausdorffDistanceBetweenMeshs.exe <off_file_1_name> <off_file_2_name>
+```
+
