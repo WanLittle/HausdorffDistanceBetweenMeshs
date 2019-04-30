@@ -23,7 +23,13 @@ void Mesh::generateMeshFromOff(string filename)
   
   // Open file for reading
   ifstream in(filename.c_str());
-
+  if (!in)
+  {
+    cout << filename
+      << "\n error: Open file failed." << endl;
+    exit(0);
+    return;
+  }
   // Check if file is in OFF format
   getline(in, readLine);
   if (readLine != "OFF")

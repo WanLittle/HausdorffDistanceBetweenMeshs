@@ -11,43 +11,27 @@ using namespace std;
 #include "TestExecutionTime.h"
 
 #define t_start TestExecutionTime::start()
-#define t_end TestExecutionTime::end("\n\nTotal time of computing Hausdorff Distance")
+#define t_end TestExecutionTime::end("\nTotal time of computing Hausdorff Distance")
 
-int main()
+int main(int argc, char* argv[])
 {
-  string meshPath = "../../res/";
-  string originMeshName = "uniform";
-  vector<string> destMeshNames = {
-    "oct",
-    "kd",
-  };
+    if (argc < 3)
+    {
+        cout << "Parameter error!" << endl;
+        exit(0);
+    }
 
-  cout << "Loading .off files...\n";
-  Mesh* originMesh = new Mesh(meshPath + originMeshName + ".off");
-  vector<Mesh* > destMesh(destMeshNames.size());
-  for (int i = 0; i < destMeshNames.size(); i++) {
-    destMesh[i] = new Mesh(meshPath + destMeshNames[i] + ".off");
-  }
-  cout << "Loading success\n";
+    char *originMeshPath = argv[1], *destMeshPath = argv[2];
+    Mesh *originMesh = new Mesh(originMeshPath), *destMesh = new Mesh(destMeshPath);
 
-  DistanceBetweenMeshs runner;
+    DistanceBetweenMeshs runner;
 
-  cout << "Computing symmetric Hausdorff Distance between following mesh pairs: \n\n";
-  t_start;
-  for (int i = 0; i < destMeshNames.size(); i++) {
-    cout << originMeshName << originMesh->nf << " & " 
-      << destMeshNames[i] << destMesh[i]->nf << " :  " 
-      << runner(originMesh, destMesh[i]) << endl;
-  }
-  t_end;
+    cout << originMesh->nf << endl
+        << destMesh->nf << endl;
+    cout << runner(originMesh, destMesh) << endl;
 
+    delete originMesh;
+    delete destMesh;
 
-  delete originMesh;
-  for (auto it = destMesh.begin(); it != destMesh.end(); it++) {
-    delete *it;
-    *it = nullptr;
-  }
-
-  cout << "\n\n\n³ÌÐò½áÊø...\n";
-  return 0;
+    return 0;
 }
