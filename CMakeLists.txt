@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 2.6)
 
 Project(HasudorffDistanceBetweenMeshs)
 
-file(GLOB LEARNCG_SRC "*.c" "*.cpp" "*.h")
+file(GLOB_RECURSE PROJECT_SOURCES src/*.c src/*.cpp)
+file(GLOB_RECURSE PROJECT_HEADERS src/*.h)
 
 find_package(OpenMP)
 if(OPENMP_FOUND)
@@ -14,4 +15,4 @@ else()
 	message("OPENMO NOT FOUND")
 endif()
 
-add_executable(${PROJECT_NAME} ${LEARNCG_SRC})
+add_executable(${PROJECT_NAME} ${PROJECT_HEADERS} ${PROJECT_SOURCES})
